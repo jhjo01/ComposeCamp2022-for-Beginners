@@ -22,15 +22,47 @@ import com.example.composequadrant.ui.theme.ComposeQuadrantTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent { }
+        setContent {
+            ComposeQuadrantTheme {
+                Surface(color = MaterialTheme.colors.background) {
+                    ComposeQuadrantApp()
+                }
+            }
+        }
     }
 }
 
 @Composable
 fun ComposeQuadrantApp() {
-    Column() {
-        Row() { }
-        Row() { }
+    Column(Modifier.fillMaxWidth()) {
+        Row(Modifier.weight(1f)) {
+            ComposableInfoCard(
+                stringResource(R.string.first_title),
+                stringResource(R.string.first_description),
+                Color.Green,
+                Modifier.weight(1f)
+            )
+            ComposableInfoCard(
+                stringResource(R.string.second_title),
+                stringResource(R.string.second_description),
+                Color.Yellow,
+                Modifier.weight(1f)
+            )
+        }
+        Row(Modifier.weight(1f)) {
+            ComposableInfoCard(
+                stringResource(R.string.third_title),
+                stringResource(R.string.third_description),
+                Color.Cyan,
+                Modifier.weight(1f)
+            )
+            ComposableInfoCard(
+                stringResource(R.string.fourth_title),
+                stringResource(R.string.fourth_description),
+                Color.LightGray,
+                Modifier.weight(1f)
+            )
+        }
     }
 }
 
@@ -41,10 +73,31 @@ private fun ComposableInfoCard(
     backgroundColor: Color,
     modifier: Modifier = Modifier
 ) {
-    Column( ) { }
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .background(backgroundColor)
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = title,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+        Text(
+            text = description,
+            textAlign = TextAlign.Justify
+        )
+    }
 }
 
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() { }
+fun DefaultPreview() {
+    ComposeQuadrantTheme {
+        ComposeQuadrantApp()
+    }
+}
